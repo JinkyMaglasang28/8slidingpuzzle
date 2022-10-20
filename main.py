@@ -1,7 +1,5 @@
-from curses import window
 import imp
-from multiprocessing import managers
-from turtle import back
+from puzzle import Puzzle
 import pygame
 import pygame_gui
 import time
