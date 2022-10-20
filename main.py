@@ -6,7 +6,7 @@ import time
 import colors
 
 
-SCREEN_SIZE = (1200, 700)
+SCREEN_SIZE = (1000, 700)
 
 pygame.init()
 BASICFONT = pygame.font.Font('FiraCode-Retina.ttf',50)
@@ -24,7 +24,7 @@ def display_elements():
     ### Title Label
     pygame_gui.elements.ui_label.UILabel(manager=manager,
                                         text="8-Puzzle Game",
-                                        relative_rect=pygame.Rect((540, 10), (300, 70)),
+                                        relative_rect=pygame.Rect((350, 10), (300, 70)),
                                         object_id="#title_box"
                                         )
     
@@ -32,13 +32,13 @@ def display_elements():
 
 display_elements()
 ### solve button
-solve_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 640), (250, 45)),
+solve_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450), (250, 50)),
                                              text='Solve Puzzle',
                                              manager=manager,
                                              object_id="#solve_btn")
 
 ### algorithmOptions DropDown
-dropdown_layout_rect = pygame.Rect((970, 600), (280, 35))
+dropdown_layout_rect = pygame.Rect((650, 370), (280, 50))
 algorithmOptions = ["A* (Manhatan Distance)","Best-First (Manhatan Distance)"]
 algorithmDropDown = pygame_gui.elements.UIDropDownMenu(options_list=algorithmOptions,
                                                        starting_option=algorithmOptions[1],
@@ -46,35 +46,35 @@ algorithmDropDown = pygame_gui.elements.UIDropDownMenu(options_list=algorithmOpt
                                                        manager=manager)
 
 ### Search label
-pygame_gui.elements.ui_label.UILabel(parent_element=algorithmDropDown,
-                                     manager=manager,
-                                     text="Heuristic Search:", # (pos-width,pos-height),(width,height)
-                                     relative_rect=pygame.Rect((800, 600), (170, 30)))
+#pygame_gui.elements.ui_label.UILabel(parent_element=algorithmDropDown,
+                                     #manager=manager,
+                                     #text="Heuristic Search:", # (pos-width,pos-height),(width,height)
+                                     #relative_rect=pygame.Rect((650, 600), (170, 30)))
 
 ### Final state input
-report_rect = pygame.Rect((1000, 210), (250, 30))
-Final_state = pygame_gui.elements.UITextEntryLine(relative_rect=report_rect,
-                                                  manager=manager)
+#report_rect = pygame.Rect((750, 210), (250, 30))
+#Final_state = pygame_gui.elements.UITextEntryLine(relative_rect=report_rect,
+                                                  #manager=manager)
 
 ### Final state label
-pygame_gui.elements.ui_label.UILabel(parent_element=Final_state,
-                                     manager=manager,
-                                     text="Final State:", # (pos-width,pos-height),(width,height)
-                                     relative_rect=pygame.Rect((855, 210), (140, 30)))
+#pygame_gui.elements.ui_label.UILabel(parent_element=Final_state,
+                                     #manager=manager,
+                                     #text="Final State:", # (pos-width,pos-height),(width,height)
+                                     #relative_rect=pygame.Rect((650, 210), (140, 30)))
 
 ### set final state with button
-set_final_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1000, 250), (250, 30)),
+set_final_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 250), (250, 30)),
                                                 text='Set Final State',
                                                 manager=manager)
 ### shuffle button
-button_layout_rect = pygame.Rect((1000, 290), (250, 30))
+button_layout_rect = pygame.Rect((650, 290), (250, 50))
 shuffle_button = pygame_gui.elements.UIButton(relative_rect=button_layout_rect,
                                              text='Shuffle',
                                              manager=manager)
 
 ### info button
 info_html = "<b>Click Here<b>To see developers info!!!"
-button_layout_rect = pygame.Rect((1250, 690), (30, 30))
+button_layout_rect = pygame.Rect((50, 690), (30, 30))
 info_button = pygame_gui.elements.UIButton(relative_rect=button_layout_rect,
                                              text='?',
                                              manager=manager,
