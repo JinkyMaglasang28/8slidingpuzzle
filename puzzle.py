@@ -109,12 +109,10 @@ class Puzzle:
             return 1
 
 
-    def bestFirst(self):
-        #função de avaliação por busca em largura
-        inicio = time.time()
+    def breadthFirst(self):
         node = self.matrix
         Mfinal = Matrix(3,3)
-        Mfinal.buildMatrix(self.final_state) #1,2,3,4,5,6,7,8,0
+        Mfinal.buildMatrix(self.final_state)
         final = Mfinal.getMatrix()
         queue = PriorityQueue()
         queue.put(node)
@@ -142,16 +140,9 @@ class Puzzle:
                 if nd.move != '':
                     moves.append(nd.move)
                 nd = nd.previous
-        fim = time.time()
-        self.lastSolveTime = fim-inicio
-        print("## Best-First ##\n")
-        print("Tempo gasto {temp: .5f}:".format(temp = fim-inicio))
-        print("Tós visitados:",n,"\n")
         return moves[::-1]
     
     def a_star(self):
-        # iniciando timer
-        inicio = time.time()
         node = self.matrix
         Mfinal = Matrix(3,3)
         Mfinal.buildMatrix(self.final_state) #1,2,3,4,5,6,7,8,0
@@ -187,11 +178,4 @@ class Puzzle:
                 if nd.move != '':
                     moves.append(nd.move)
                 nd = nd.previous
-                
-        fim = time.time()
-        self.lastSolveTime = fim-inicio
-        print("## A* ##\n")
-        print("Tempo gasto {temp: .5f}:".format(temp = fim-inicio))
-        print("Nós visitados:",n,"\n")
-        
         return moves[::-1]

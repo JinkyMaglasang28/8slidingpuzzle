@@ -28,8 +28,6 @@ def display_elements():
                                         object_id="#title_box"
                                         )
     
-
-
 display_elements()
 ### solve button
 solve_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450), (250, 50)),
@@ -39,33 +37,12 @@ solve_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 450)
 
 ### algorithmOptions DropDown
 dropdown_layout_rect = pygame.Rect((650, 370), (280, 50))
-algorithmOptions = ["A* (Manhatan Distance)","Best-First (Manhatan Distance)"]
+algorithmOptions = ["A* (Manhatan Distance)","Breadth-First"]
 algorithmDropDown = pygame_gui.elements.UIDropDownMenu(options_list=algorithmOptions,
                                                        starting_option=algorithmOptions[1],
                                                        relative_rect=dropdown_layout_rect,
                                                        manager=manager)
 
-### Search label
-#pygame_gui.elements.ui_label.UILabel(parent_element=algorithmDropDown,
-                                     #manager=manager,
-                                     #text="Heuristic Search:", # (pos-width,pos-height),(width,height)
-                                     #relative_rect=pygame.Rect((650, 600), (170, 30)))
-
-### Final state input
-#report_rect = pygame.Rect((750, 210), (250, 30))
-#Final_state = pygame_gui.elements.UITextEntryLine(relative_rect=report_rect,
-                                                  #manager=manager)
-
-### Final state label
-#pygame_gui.elements.ui_label.UILabel(parent_element=Final_state,
-                                     #manager=manager,
-                                     #text="Final State:", # (pos-width,pos-height),(width,height)
-                                     #relative_rect=pygame.Rect((650, 210), (140, 30)))
-
-### set final state with button
-set_final_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 250), (250, 30)),
-                                                text='Set Final State',
-                                                manager=manager)
 ### shuffle button
 button_layout_rect = pygame.Rect((650, 290), (250, 50))
 shuffle_button = pygame_gui.elements.UIButton(relative_rect=button_layout_rect,
@@ -119,7 +96,7 @@ pygame.display.update()
 clock = pygame.time.Clock()
 puzzle = Puzzle.new(250, 220, 330, 330)
 puzzle.initialize()
-algorithm = "Best-First (Manhatan Distance)"
+algorithm = "Breadth-First"
 fstate="1,2,3,4,5,6,7,8,0"
 is_running = True
 
@@ -133,50 +110,21 @@ while is_running:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == shuffle_button:
                     puzzle.randomBlocks()
-                elif event.ui_element == set_final_button:
-                    if not puzzle.setBlocks(Final_state.get_text()):
-                        alert_label.set_text("Final state invalid!")
-                    else:
-                        alert_label.set_text("Final state valid!")
-                        puzzle.final_state = Final_state.get_text()
-                elif event.ui_element == info_button:
-                    Info_msg = '<b>8-Puzzle Solver<br><br>Authors:</b><br>Mateus Mendonça Monteiro<br>Vinicius Santana Ramos'
-                    # Information Box - Info
-                    info_win = pygame_gui.windows.ui_confirmation_dialog.UIConfirmationDialog(rect = pygame.Rect((600, 300), (180, 80)),
-                                                                                            manager = manager,
-                                                                                            action_long_desc = Info_msg,
-                                                                                            window_title ='Developers Info',
-                                                                                            )
+
+                
                 elif event.ui_element == solve_button:
                     
-                    if algorithm == "Best-First (Manhatan Distance)":
-                        moves = puzzle.bestFirst()
-                        tempo = "{temp: .5f} seconds".format(temp = puzzle.lastSolveTime)
-                        report_msg = '<b>Visited nodes:</b> '+str(puzzle.cost)+'        <b>Time:</b>'+tempo+ '        <b>Resolution:</b> '+str(len(moves))+' steps'
-                        # Confirmation Box - Algorithm Report
-                        confirmation_win = pygame_gui.windows.ui_confirmation_dialog.UIConfirmationDialog(rect = pygame.Rect((600, 300), (180, 80)),
-                                                                                                manager = manager,
-                                                                                                action_long_desc = report_msg,
-                                                                                                window_title =algorithm.split(" ")[0] + ' Search Report',
-                                                                                                )
+                    if algorithm == "Breadth-First":
+                        moves = puzzle.breadthFirst()
                         solveAnimation(moves)
                         
                     elif algorithm == "A* (Manhatan Distance)":
                         moves = puzzle.a_star()
-                        tempo = "{temp: .5f} seconds".format(temp = puzzle.lastSolveTime)
-                        report_msg = '<b>Visited nodes:</b> '+str(puzzle.cost)+'        <b>Time:</b>'+tempo+ '        <b>Resolution:</b> '+str(len(moves))+' steps'
-                        # Confirmation Box - Algorithm Report
-                        confirmation_win = pygame_gui.windows.ui_confirmation_dialog.UIConfirmationDialog(rect = pygame.Rect((600, 300), (180, 80)),
-                                                                                                manager = manager,
-                                                                                                action_long_desc = report_msg,
-                                                                                                window_title =algorithm.split(" ")[0] + ' Search Report',
-                                                                                                )
                         solveAnimation(moves)
                         
             elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_element == algorithmDropDown:
                     algorithm = event.text
-            elif event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_element == Final_state:
                 print("")
         manager.process_events(event)
         
